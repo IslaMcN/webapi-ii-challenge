@@ -28,16 +28,37 @@ router.post('/', (req, res) => {
     
     
 
-router.post('/api/posts/:id/comments', (req, res) => {
+router.post('/:id/comments', (req, res) => {
     const id = req.params.id;
-    data.insert(id)
-    .then(data => {
-        
-    })
+    const text = req.body;
+    if(id){
+        db.insertComment(text)
+        .then(comment => res.json(comment))
+        .catch(err => console.log(err))
+    }
+   
+   
+
+    
+    
+})
+
+router.get('/:id', (req, res) => {
+    const id = req.body;
+    db
+    .insert(id)
     .catch(err => {
-        console.log(err);
-        res.status(500).json({message: 'Error adding the data'})
+        res.status(500).json({error: "The post info could not be retrieved."})
     })
+    if(id !== id){ 
+        db
+        res.status(404).json({message: "The post with the specified ID does not exist"})
+    }else{
+        db
+        .then(
+        res.status(200).json(id))
+    }
+    
 })
 
 module.exports = router;
