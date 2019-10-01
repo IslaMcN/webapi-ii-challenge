@@ -61,4 +61,9 @@ router.get('/:id', (req, res) => {
     
 })
 
+router.get('/:id/comments', (req, res) => {
+    const id = req.body;
+    db.insert(id)
+})
+
 module.exports = router;
