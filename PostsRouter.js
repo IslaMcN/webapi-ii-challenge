@@ -87,4 +87,40 @@ router.get('/:id/comments', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    db.remove(id)
+    .then(data => {
+        if(data){
+            res.status(200).json(data)
+        }else{
+            res.status(400).json({message: "That just does not exist."})
+        }
+    })
+    .catch(err => {
+        res.status(500).json({error: "Nope", err})
+    }
+    )
+})
+
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    if (!req.body.title || !req.body.contents){
+        res.status(400).json({message:"No"})
+    }else{
+        db
+        .update(id, req.body)
+        .then(data => {
+            if (data){
+                res.status(200).json(req.body);
+            }else{
+                res.status(404).json({message:"HEY! NO!"})
+            }
+        })
+        .catch(err=>{
+            res.status(500).json({error:"Nu-uh", err})
+        })
+    }
+})
 module.exports = router;
