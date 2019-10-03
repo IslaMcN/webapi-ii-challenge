@@ -12,7 +12,7 @@ server.get('/', (req, res) => {
     res.send(`
     <h1>Hello You!</h1>`);
 });
-const port = 4000
-server.listen(4000, () => {
+const port = process.env.PORT || 2200
+server.listen(port, () => {
     console.log(`Server running on port ${port}`)
 })
